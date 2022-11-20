@@ -11,9 +11,11 @@ object CheckoutService {
     }
 
     // sum the cost for each type of fruit
+    // fruit sub-total is now handled by SpecialOffersService
+
     groups.map { entry =>
       val (fruit, listOfFruit) = entry
-      PriceService.getPriceInPence(fruit) *  listOfFruit.size
+      SpecialOffersService.getFruitSubtotal(fruit, listOfFruit.size)
     }.sum
   }
 }
