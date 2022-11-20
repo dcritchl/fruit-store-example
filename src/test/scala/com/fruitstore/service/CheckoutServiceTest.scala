@@ -10,7 +10,7 @@ class CheckoutServiceTest extends AnyFlatSpec with should.Matchers {
     (0 to 100).map { count =>
       val basket = List.fill(count)(Apple)
 
-      CheckoutService.getBasketTotalPrice(basket) should be(PriceService.getPriceInPence(Apple) * count)
+      CheckoutService.getBasketTotalPrice(basket) should be(SpecialOffersService.getFruitSubtotal(Apple, count))
     }
   }
 
@@ -18,7 +18,7 @@ class CheckoutServiceTest extends AnyFlatSpec with should.Matchers {
     (0 to 100).map { count =>
       val basket = List.fill(count)(Orange)
 
-      CheckoutService.getBasketTotalPrice(basket) should be(PriceService.getPriceInPence(Orange) * count)
+      CheckoutService.getBasketTotalPrice(basket) should be(SpecialOffersService.getFruitSubtotal(Orange, count))
     }
   }
 
@@ -32,8 +32,8 @@ class CheckoutServiceTest extends AnyFlatSpec with should.Matchers {
       val basket = oranges ++ apples
 
       CheckoutService.getBasketTotalPrice(basket) should be(
-        PriceService.getPriceInPence(Orange) * oranges.size +
-          PriceService.getPriceInPence(Apple) * apples.size
+        SpecialOffersService.getFruitSubtotal(Orange, oranges.size) +
+          SpecialOffersService.getFruitSubtotal(Apple, apples.size)
       )
     }
   }
